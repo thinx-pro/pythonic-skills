@@ -1,0 +1,13 @@
+{
+  "name": "pythonic-skills",
+  "version": "0.1.0",
+  "description": "Agent Skills that make coding agents write and review modern, robust Python: typed, fails loudly, safe with files, subprocesses, network and time. With a ruff config proven rule by rule.",
+  "author": {
+    "name": "thinx-pro",
+    "url": "https://github.com/thinx-pro"
+  },
+  "homepage": "https://github.com/thinx-pro/pythonic-skills",
+  "repository": "https://github.com/thinx-pro/pythonic-skills",
+  "license": "MIT",
+  "keywords": ["python", "skills", "best-practices", "code-review", "ruff", "claude-code"]
+}

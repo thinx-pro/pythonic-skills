@@ -1,0 +1,21 @@
+{
+  "name": "pythonic-skills",
+  "owner": {
+    "name": "thinx-pro",
+    "url": "https://github.com/thinx-pro"
+  },
+  "metadata": {
+    "description": "Agent Skills for writing and reviewing modern, robust Python.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "pythonic-skills",
+      "source": "./",
+      "description": "python-best-practices (writing) and python-review (reviewing) skills",
+      "version": "0.1.0",
+      "category": "development",
+      "keywords": ["python", "best-practices", "code-review"]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+schema_version: "1.1"
+name: review-inventory-module
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  A prioritized review of inventory.py that flags eval() on file data as a security
+  must-fix, the bare except returning None, the mutable default arguments, files opened
+  without with/encoding, utcnow(), nondeterministic report ordering and value() treating
+  missing data as 0. Every finding cites a file:line location and shows a code fix, the
+  report says what is good, and inventory.py is left unchanged.

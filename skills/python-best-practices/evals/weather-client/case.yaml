@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: weather-client
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  A weather.py module for use inside a long-running service: every HTTP call has a
+  timeout, HTTP errors are checked, failures surface as a module-specific exception
+  chained from the cause, observed_at is parsed into a timezone-aware datetime, the result
+  is a typed object, the HTTP client is reusable or injectable, nothing prints, any retry
+  is bounded and limited to transient errors, and tests mock the HTTP boundary (including
+  a failure path) without touching the network.

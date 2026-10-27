@@ -1,0 +1,13 @@
+schema_version: "1.1"
+name: refactor-inventory-module
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  A refactored inventory.py that keeps the behavior test_inventory.py checks (the tests
+  still pass) and fixes the problems in the original: eval() used to parse quantities,
+  a bare except that returns None and hides every load error, a mutable default argument
+  (tags=[], and defaults={}), files opened without `with` or an encoding, os.path string
+  joins instead of pathlib, debug print() calls, datetime.utcnow(), `== None`, a boolean
+  positional parameter on report, string concatenation, nondeterministic set() ordering
+  in report, and value() silently treating a missing item or missing price as 0.
+  CHANGES.md lists each change with a one-line reason.

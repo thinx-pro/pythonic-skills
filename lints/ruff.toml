@@ -1,0 +1,63 @@
+# pythonic-skills: a ruff config that enforces the machine-checkable rules from the
+# python-best-practices skill. Checked against ruff 0.17.3.
+#
+# Use it as-is: copy this file next to your pyproject.toml as `ruff.toml`.
+# Or merge it: put the [lint] tables into pyproject.toml as [tool.ruff.lint], etc.
+# Set target-version to your project's minimum Python.
+#
+# Every rule in the README table is proven to fire by scripts/check_lints.py, and a
+# clean reference module (lints/check/clean.py) is proven to produce no findings.
+
+# py311 default: Python 3.10 reached end of life in October 2026.
+target-version = "py311"
+line-length = 100
+
+[lint]
+select = [
+  "E", "W", "F",  # pycodestyle + pyflakes: E711 `== None`, E722 bare except, unused names
+  "I",            # import sorting
+  "UP",           # modern syntax for target-version: UP006 list[int], UP007/UP045 X | None
+  "B",            # bugbear: B006 mutable default, B904 raise-from, B905 zip(strict=), B008
+  "BLE",          # BLE001 blind `except Exception`
+  "S",            # bandit: S110 try/except/pass, S113 no timeout, S602 shell=True, S307 eval,
+                  #   S301 pickle, S506 yaml.load, S608 SQL from strings, S324 md5/sha1, S202 tar
+  "DTZ",          # DTZ005 now() without tz, DTZ003 utcnow()
+  "PTH",          # PTH118 os.path.join, PTH110 os.path.exists -> pathlib
+  "G",            # G004 f-string in logging call
+  "T20",          # T201 print [applications: see per-file-ignores below]
+  "FBT",          # FBT001/FBT002 boolean positional parameters
+  "A",            # A001/A002 shadowing builtins
+  "ANN",          # ANN001/ANN201 missing annotations
+  "ASYNC",        # ASYNC210 requests in async def, ASYNC251 time.sleep in async def
+  "RUF",          # RUF006 dangling asyncio task, RUF012 mutable class default
+  "TRY",          # TRY400 logging.error in except (use exception), TRY300 try/else
+  "PGH",          # PGH003 blanket `# type: ignore`
+  "PLW",          # PLW0603 `global`, PLW1510 subprocess.run without check=
+  "ERA",          # ERA001 commented-out code
+  "SIM", "C4", "PIE", "RET", "PERF", "N",
+]
+ignore = [
+  "TRY003",  # we *want* context in exception messages
+  "S603",    # subprocess with an argument list is the safe form; S602 catches shell=True
+  "S607",    # partial executable paths ("git") are normal in dev tools
+  "S311",    # `random` is fine outside security code; the skill says use `secrets` for tokens
+  "PTH123",  # builtin open() is fine; the skill cares about pathlib for path manipulation
+  "RET504",  # assigning before return often reads better
+  "SIM108",  # ternaries are not always clearer
+]
+# Optional: unspecified-encoding (PLW1514, open() without encoding=) is a preview rule in
+# ruff 0.17. To enforce it, add `preview = true` and `explicit-preview-rules = true` under
+# [lint] and "PLW1514" to `extend-select`.
+
+[lint.per-file-ignores]
+"tests/**" = ["S101", "ANN", "FBT", "PLR2004", "T20"]
+"**/conftest.py" = ["S101", "ANN"]
+# Applications may print user-facing output. Add your CLI modules here, e.g.:
+# "src/mytool/cli.py" = ["T20"]
+
+[lint.flake8-bugbear]
+# Typer/FastAPI-style calls in defaults are intentional:
+extend-immutable-calls = ["typer.Option", "typer.Argument", "fastapi.Depends", "fastapi.Query"]
+
+[format]
+quote-style = "double"

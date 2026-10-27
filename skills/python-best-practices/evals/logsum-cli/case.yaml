@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: logsum-cli
+expected_outcome: |
+  A logsum.py CLI (plus a small test file) that never shows a traceback for bad input:
+  a missing directory or unreadable file produces a clear message on stderr and a non-zero
+  exit code; malformed lines are skipped, counted and reported. It uses argparse, pathlib,
+  explicit encodings, type annotations and a main() with a __main__ guard, prints counts
+  per level sorted by count descending with a deterministic tie-break, and was actually
+  run by the agent.
